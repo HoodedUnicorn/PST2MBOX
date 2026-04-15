@@ -76,3 +76,6 @@ Apache 2.0
 
 ### Author
 HoodedUnicorn
+
+### Credits
+Icon by NajmunNahar from Flaticon
