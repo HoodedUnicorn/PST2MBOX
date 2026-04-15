@@ -1,8 +1,10 @@
-# PST2MBOX v0.1
 
+# PST2MBOX
 A simple Windows GUI tool to convert Microsoft Outlook PST files to MBOX format using WSL and readpst.
 
 ## Screenshot
+<img width="694" height="322" alt="PST2MBOXv1 0 0" src="https://github.com/user-attachments/assets/1d69e20f-4e99-4e55-9d01-125f6d702912" /> <br>
+Version 1.0.0
 
 <img width="693" height="324" alt="PST2MBOXv0 1" src="https://github.com/user-attachments/assets/cb2b52b3-1839-462f-879c-63586430a2fd" /> <br>
 Version v0.1
