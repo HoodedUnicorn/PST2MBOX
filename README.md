@@ -64,9 +64,15 @@ readpst<br>
    ↓<br>
 MBOX output<br>
 
+### Known limitations
+
+- Large PST conversions may temporarily feel unresponsive while processing.
+- Conversion performance depends on PST size, disk speed, WSL overhead, and readpst behavior.
+- Progress reporting and responsiveness will be improved in a future release.
+
 ### License
 
-No license specified yet.
+Apache 2.0
 
 ### Author
 HoodedUnicorn
