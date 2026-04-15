@@ -1,10 +1,19 @@
 import sys
+import os
 import subprocess
 from PyQt5 import QtWidgets
+from PyQt5.QtGui import QIcon
+
+
+def resource_path(relative_path):
+    try:
+        base_path = sys._MEIPASS
+    except AttributeError:
+        base_path = os.path.abspath(".")
+    return os.path.join(base_path, relative_path)
 
 
 def to_wsl_path(path):
-    # Convert C:\Users\... → /mnt/c/Users/...
     return path.replace("C:", "/mnt/c").replace("\\", "/")
 
 
@@ -13,6 +22,7 @@ class PST2MBOX(QtWidgets.QWidget):
         super().__init__()
 
         self.setWindowTitle("PST → MBOX Converter (WSL) v1.0.0")
+        self.setWindowIcon(QIcon(resource_path("icon.ico")))
         self.setGeometry(300, 300, 700, 300)
 
         layout = QtWidgets.QVBoxLayout()
@@ -52,37 +62,36 @@ class PST2MBOX(QtWidgets.QWidget):
         self.log.append(msg)
 
     def run_convert(self):
-        pst = self.pst_path.text()
-        out = self.out_path.text()
+        import threading
 
-        if not pst or not out:
-            self.log_msg("❌ Select PST and output folder")
-            return
+        def worker():
+            pst = self.pst_path.text()
+            out = self.out_path.text()
 
-        pst_wsl = to_wsl_path(pst)
-        out_wsl = to_wsl_path(out)
+            if not pst or not out:
+                self.log_msg("Select PST and output folder")
+                return
 
-        cmd = [
-            "wsl",
-            "readpst",
-            "-o",
-            out_wsl,
-            pst_wsl
-        ]
+            pst_wsl = to_wsl_path(pst)
+            out_wsl = to_wsl_path(out)
 
-        self.log_msg("🚀 Running conversion...")
-        self.log_msg(" ".join(cmd))
+            cmd = ["wsl", "readpst", "-o", out_wsl, pst_wsl]
 
-        process = subprocess.run(cmd, capture_output=True, text=True)
+            self.log_msg("Running conversion...")
+            self.log_msg(" ".join(cmd))
 
-        self.log_msg(process.stdout)
-        self.log_msg(process.stderr)
+            process = subprocess.run(cmd, capture_output=True, text=True)
 
-        self.log_msg("✅ Done")
+            self.log_msg(process.stdout)
+            self.log_msg(process.stderr)
+            self.log_msg("Done")
+
+        threading.Thread(target=worker, daemon=True).start()
 
 
 if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)
+    app.setWindowIcon(QIcon(resource_path("icon.ico")))
     win = PST2MBOX()
     win.show()
     sys.exit(app.exec_())
