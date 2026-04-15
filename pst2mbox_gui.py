@@ -12,7 +12,7 @@ class PST2MBOX(QtWidgets.QWidget):
     def __init__(self):
         super().__init__()
 
-        self.setWindowTitle("PST → MBOX Converter (WSL)")
+        self.setWindowTitle("PST → MBOX Converter (WSL) v1.0.0")
         self.setGeometry(300, 300, 700, 300)
 
         layout = QtWidgets.QVBoxLayout()
