@@ -1,0 +1,33 @@
+import pypff
+import mailbox
+import email
+from email.utils import formatdate
+
+pst = pypff.file()
+pst.open("input.pst")
+
+root = pst.get_root_folder()
+
+mbox = mailbox.mbox("output.mbox")
+
+def process_folder(folder):
+    for i in range(folder.number_of_sub_messages):
+        msg = folder.get_sub_message(i)
+
+        em = email.message.EmailMessage()
+        em["Subject"] = msg.subject or ""
+        em["From"] = msg.sender_name or ""
+        em["To"] = msg.display_to or ""
+        em["Date"] = formatdate()
+
+        body = msg.plain_text_body or msg.html_body or ""
+        em.set_content(body)
+
+        mbox.add(em)
+
+    for i in range(folder.number_of_sub_folders):
+        process_folder(folder.get_sub_folder(i))
+
+process_folder(root)
+mbox.flush()
+pst.close()
