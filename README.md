@@ -22,6 +22,29 @@ Version v0.1
 - WSL (Windows Subsystem for Linux)
 - `readpst` installed in WSL
 
+## 🚀 Roadmap
+
+### v1.1.0 — UI & Performance Improvements
+
+Focus: make the application feel smooth and responsive without changing core functionality.
+
+* Improve UI responsiveness (no “not responding” feel)
+* Stream conversion logs in real-time
+* Add progress feedback during conversion
+* Disable UI controls while conversion is running
+* Optional cancel button to stop conversion
+
+---
+
+### Future ideas
+
+* Auto-open output folder after conversion
+* Improved error handling and user feedback
+* Better input validation
+* Optional installer (setup.exe)
+* UI polish and layout improvements
+
+
 ## Setup
 
 ### 1. Install WSL
